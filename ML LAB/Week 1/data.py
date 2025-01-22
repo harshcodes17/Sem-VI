@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from scipy.stats import norm
+from sklearn.metrics import accuracy_score,confusion_matrix
 
 def generate_Heights(n=1000, femalex=152, malex=166, sd=5):
     female_h = np.random.normal(femalex,sd,n)
@@ -23,7 +24,10 @@ def probability_based_on_likelihood(df,femalex = 152 , malex = 166 , sd = 5):
 result = probability_based_on_likelihood(df)
 print(result)
 df['predicted_gender'] = result
+
 df.to_csv('pdf.csv', index=False)
+
+
 
 def threshold_classifier(df, threshold=None):
     if threshold is None:
@@ -35,6 +39,22 @@ print(threshold_classifier(df))
 result = threshold_classifier(df)
 df['predicted_gender'] = result
 df.to_csv('threshold.csv', index=False)
+
+def quantized_classifier(df, interval=0.5):
+    df['height_quantized'] = (df['height'] // interval) * interval
+    majority_gender = df.groupby('height_quantized')['gender'].agg(
+        lambda x: 'M' if (x == 'M').sum() > (x == 'F').sum() else 'F'
+    )
+    predictions = df['height_quantized'].map(majority_gender)
+    return predictions
+
+result = quantized_classifier(df)
+
+df['predicted_gender'] = result
+df.to_csv('quantized.csv',index = False)
+
+
+
 
 
 

@@ -1,0 +1,28 @@
+for given a univariate dataset s = 5 , 10 , 15 ... 30  of mark 
+find mean median mode SD and Variance
+``import numpy as np
+from scipy import stats
+
+# Given dataset
+data = [5, 10, 15, 20, 25, 30]
+
+# Calculating mean
+mean = np.mean(data)
+
+# Calculating median
+median = np.median(data)
+
+# Calculating mode
+mode = stats.mode(data)
+
+# Calculating standard deviation
+std_dev = np.std(data)
+
+# Calculating variance
+variance = np.var(data)
+
+print(f"Mean: {mean}")
+print(f"Median: {median}")
+print(f"Mode: {mode.mode[0]}")
+print(f"Standard Deviation: {std_dev}")
+print(f"Variance: {variance}")``
