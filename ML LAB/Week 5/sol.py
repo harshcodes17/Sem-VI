@@ -74,7 +74,7 @@ print(f"Train Accuracy (after outlier removal): {train_acc_no_outliers:.4f}")
 print(f"Test Accuracy (after outlier removal): {test_acc_no_outliers:.4f}")
 
 # Step 6: Impact of Trimming
-for k in range(1, 16):
+for k in range(1, 15):
     lower_percentile = np.percentile(female_train, k)
     upper_percentile = np.percentile(female_train, 100 - k)
     female_trimmed = female_train[(female_train >= lower_percentile) & (female_train <= upper_percentile)]
